@@ -1,0 +1,52 @@
+###
+POST http://localhost:4567/customer
+Content-Type: application/json
+
+{
+  "company_name": "LIG",
+  "company_email": "mail@lig.vn",
+  "tax_id": "123",
+  "billing_address": {
+    "address_line": "line",
+    "postal_code": "code",
+    "city": "Singapore"
+  },
+  "shipping_address": {
+    "address_line": "ship line",
+    "postal_code": "ship code",
+    "city": "Dubai"
+  }
+}
+
+###
+GET http://localhost:4567/customers
+Content-Type: application/json
+
+###
+GET http://localhost:4567/customer/642e95a664b2b92fdd4f6cf1
+Content-Type: application/json
+
+###
+PUT http://localhost:4567/customer
+Content-Type: application/json
+
+{
+  "customer_id": "642e95a664b2b92fdd4f6cf1",
+  "company_name": "ACB",
+  "company_email": "mail@lig.vn",
+  "tax_id": "123",
+  "billing_address": {
+    "address_line": "line",
+    "postal_code": "code",
+    "city": "Singapore"
+  },
+  "shipping_address": {
+    "address_line": "ship line",
+    "postal_code": "ship code",
+    "city": "Dubai"
+  }
+}
+
+###
+DELETE http://localhost:4567/customer/642e95a664b2b92fdd4f6cf1
+Content-Type: application/json
