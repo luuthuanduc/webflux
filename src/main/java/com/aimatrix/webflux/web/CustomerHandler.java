@@ -2,6 +2,7 @@ package com.aimatrix.webflux.web;
 
 import com.aimatrix.webflux.models.CustomerModel;
 import com.aimatrix.webflux.services.CustomerService;
+import com.aimatrix.webflux.validation.CustomerValidator;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -14,33 +15,36 @@ import reactor.core.publisher.Mono;
 class CustomerHandler {
 
     CustomerService customerService;
+    CustomerValidator customerValidator;
 
     Mono<ServerResponse> postCustomer(ServerRequest request) {
         return request.bodyToMono(CustomerModel.class)
+            .flatMap(customerValidator::validate)
             .flatMap(customerService::createCustomer)
             .flatMap(result -> ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(result))
-            .onErrorResume(err -> ServerResponse.badRequest().build());
+            .onErrorResume(err -> ServerResponse.badRequest().bodyValue(err.getMessage()));
     }
 
     Mono<ServerResponse> putCustomer(ServerRequest request) {
         return request.bodyToMono(CustomerModel.class)
+            .flatMap(customerValidator::validate)
             .flatMap(customerService::updateCustomer)
             .flatMap(result -> ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
                 .bodyValue(result))
-            .onErrorResume(err -> ServerResponse.badRequest().build());
+            .onErrorResume(err -> ServerResponse.badRequest().bodyValue(err.getMessage()));
     }
 
     Mono<ServerResponse> deleteCustomer(ServerRequest request) {
         return customerService.removeCustomer(request.pathVariable("id"))
-            .flatMap(result -> ServerResponse
+            .then(Mono.defer(() -> ServerResponse
                 .ok()
                 .contentType(MediaType.APPLICATION_JSON)
-                .build())
+                .build()))
             .onErrorResume(err -> ServerResponse.badRequest().build());
     }
 
