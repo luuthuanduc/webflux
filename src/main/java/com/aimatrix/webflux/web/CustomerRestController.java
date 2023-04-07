@@ -25,19 +25,19 @@ public class CustomerRestController {
 
     CustomerService customerService;
 
-    @GetMapping("/customer/{id}")
+    @GetMapping("/customers/{id}")
     Publisher<ResponseEntity<CustomerModel>> getCustomerById(@PathVariable("id") String id) {
         return customerService.findCustomerById(id)
             .map(ResponseEntity::ok)
             .switchIfEmpty(Mono.just(ResponseEntity.notFound().build()));
     }
 
-    @PostMapping("/customer")
+    @PostMapping("/customers")
     Publisher<ResponseEntity<CustomerModel>> postCustomer(@RequestBody CustomerModel customer) {
         return customerService.createCustomer(customer).map(ResponseEntity::ok);
     }
 
-    @PutMapping("/customer")
+    @PutMapping("/customers")
     Publisher<ResponseEntity<CustomerModel>> putCustomer(@RequestBody CustomerModel customer) {
         return customerService.updateCustomer(customer).map(ResponseEntity::ok);
     }
@@ -47,7 +47,7 @@ public class CustomerRestController {
         return customerService.findAllCustomers();
     }
 
-    @DeleteMapping("/customer/{id}")
+    @DeleteMapping("/customers/{id}")
     Publisher<Void> deleteCustomer(@PathVariable("id") String id) {
         return customerService.removeCustomer(id);
     }

@@ -1,5 +1,5 @@
 ###
-POST http://localhost:4567/customer
+POST http://localhost:4567/customers
 Content-Type: application/json
 
 {
@@ -23,11 +23,11 @@ GET http://localhost:4567/customers
 Content-Type: application/json
 
 ###
-GET http://localhost:4567/customer/642e95a664b2b92fdd4f6cf1
+GET http://localhost:4567/customers/642e95a664b2b92fdd4f6cf1
 Content-Type: application/json
 
 ###
-PUT http://localhost:4567/customer
+PUT http://localhost:4567/customers
 Content-Type: application/json
 
 {
@@ -48,5 +48,5 @@ Content-Type: application/json
 }
 
 ###
-DELETE http://localhost:4567/customer/642e95a664b2b92fdd4f6cf1
+DELETE http://localhost:4567/customers/642e95a664b2b92fdd4f6cf1
 Content-Type: application/json

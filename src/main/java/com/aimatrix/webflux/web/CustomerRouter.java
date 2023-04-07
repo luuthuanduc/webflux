@@ -14,12 +14,12 @@ class CustomerRouter {
 
     @Bean
     RouterFunction<ServerResponse> customerEndpoint(CustomerHandler handler) {
-        return RouterFunctions.nest(path("/nest"), RouterFunctions
-            .route(POST("/customer").and(accept(MediaType.APPLICATION_JSON)), handler::postCustomer)
+        return RouterFunctions.nest(path("/router"), RouterFunctions
+            .route(POST("/customers").and(accept(MediaType.APPLICATION_JSON)), handler::postCustomer)
             .andRoute(GET("/customers").and(accept(MediaType.APPLICATION_JSON)), handler::getAllCustomers)
-            .andRoute(GET("/customer/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::getCustomerById)
-            .andRoute(DELETE("/customer/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::deleteCustomer)
-            .andRoute(PUT("/customer/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::putCustomer)
+            .andRoute(GET("/customers/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::getCustomerById)
+            .andRoute(DELETE("/customers/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::deleteCustomer)
+            .andRoute(PUT("/customers/{id}").and(accept(MediaType.APPLICATION_JSON)), handler::putCustomer)
         );
     }
 
